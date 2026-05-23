@@ -7,7 +7,7 @@
     <style>
         body {
             margin: 0;
-            padding: 20px;
+            padding: 15px;
             background: linear-gradient(135deg, #ffe5ec, #ffc2d1);
             font-family: 'Consolas', 'Courier New', Courier, monospace;
             display: flex;
@@ -15,7 +15,8 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            overflow-x: hidden;
+            /* FIX: Khóa toàn bộ thanh cuộn của trang để chống rung tuyệt đối */
+            overflow: hidden; 
             box-sizing: border-box;
         }
 
@@ -54,12 +55,12 @@
 
         h1 {
             color: #ff477e;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             margin: 10px 0;
             font-family: system-ui, -apple-system, sans-serif;
         }
 
-        /* Giả lập cửa sổ IDE/Terminal cực ngầu */
+        /* Giả lập cửa sổ Terminal */
         .terminal {
             width: 100%;
             max-width: 750px;
@@ -71,7 +72,6 @@
             flex-direction: column;
         }
 
-        /* Thanh tiêu đề cửa sổ */
         .terminal-header {
             background-color: #323232;
             padding: 10px;
@@ -96,19 +96,20 @@
 
         .title {
             color: #cccccc;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
         }
 
-        /* Phần nội dung dòng lệnh */
+        /* Phần nội dung dòng lệnh - Tối ưu cho cả PC và Mobile */
         .terminal-body {
-            padding: 20px;
+            padding: 15px;
             color: #f8f8f2;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             line-height: 1.5;
-            height: 450px;
+            height: 55vh;
+            max-height: 450px;
             overflow-y: auto;
             text-align: left;
             white-space: pre-wrap;
@@ -117,21 +118,20 @@
         .command { color: #50fa7b; }
         .output-info { color: #8be9fd; }
         .output-love { color: #ff79c6; }
-        .output-warning { color: #ff5555; font-weight: bold; }
         
-        /* Hiệu ứng bong bóng tim bay nền */
+        /* Hiệu ứng bong bóng tim bay nền - Giới hạn biên độ để không tràn màn hình */
         .bg-heart {
             position: absolute;
             color: rgba(255, 71, 126, 0.2);
             animation: floatUp 4s linear infinite;
-            bottom: -30px;
+            bottom: -20px;
             user-select: none;
             pointer-events: none;
             z-index: -1;
         }
         @keyframes floatUp {
             0% { transform: translateY(0) scale(0); opacity: 1; }
-            100% { transform: translateY(-110vh) scale(1.4); opacity: 0; }
+            100% { transform: translateY(-115vh) scale(1.3); opacity: 0; }
         }
     </style>
 </head>
@@ -139,7 +139,7 @@
 
     <div class="heart-header">
         <div class="heart"></div>
-        <h1>Hệ Điều Hành Tình Yêu v1.0.2</h1>
+        <h1>Hệ Điều Hành Tình Yêu v1.0.3</h1>
     </div>
 
     <div class="terminal">
@@ -156,69 +156,66 @@
 
     <script>
         const content = document.getElementById("terminal-content");
-
-        // Lấy thời gian hiện tại động
         const now = new Date();
         const timeStr = now.toLocaleDateString('vi-VN') + " " + now.toLocaleTimeString('vi-VN');
 
-        // Chuỗi kịch bản mô phỏng chạy terminal
         const scripts = [
-            { text: "Gumaisme2005-PC:~ chong_yeu$ python love.py\n", type: "command", delay: 1000 },
-            { text: `Thời gian khởi chạy hệ thống: ${timeStr}\n`, type: "output-info", delay: 800 },
-            { text: "Hệ thống nhận diện: Oxa đang kết nối trực tiếp đến trái tim của vk Trúc...\n", type: "output-info", delay: 800 },
-            { text: "--------------------------------------------------------------------------------\n", type: "plain", delay: 300 },
+            { text: "Gumaisme2005-PC:~ chong_yeu$ python love.py\n", type: "command", delay: 800 },
+            { text: `Thời gian khởi chạy hệ thống: ${timeStr}\n`, type: "output-info", delay: 600 },
+            { text: "Hệ thống nhận diện: Oxa đang kết nối trực tiếp đến trái tim của vk Trúc...\n", type: "output-info", delay: 600 },
+            { text: "--------------------------------------------------------------------------------\n", type: "plain", delay: 200 },
             
             // 30 Lời thú nhận
-            { text: "01. vk Trúc ơi, anh muốn nói với em rằng em là món quà vô giá nhất mà cuộc sống đã ban tặng cho anh.\n", type: "output-love", delay: 400 },
-            { text: "02. Kể từ ngày em bước vào cuộc đời anh, mọi dòng code khô khan đều biến thành những nốt nhạc hạnh phúc.\n", type: "output-love", delay: 400 },
-            { text: "03. Trái tim anh trước đây giống như một hệ thống trống rỗng, nhưng từ khi có em, nó đã được lấp đầy bởi tình yêu.\n", type: "output-love", delay: 400 },
-            { text: "04. Nụ cười của vk Trúc là năng lượng, là 'nguồn điện' duy nhất giữ cho Oxa luôn tràn đầy sức sống và động lực.\n", type: "output-love", delay: 400 },
-            { text: "05. Mỗi buổi sáng thức dậy, điều đầu tiên anh nghĩ đến là làm sao để ngày hôm nay vk Trúc được vui cười nhiều nhất.\n", type: "output-love", delay: 400 },
-            { text: "06. Anh hứa sẽ luôn ở bên em, không chỉ những ngày nắng đẹp mà cả những ngày mưa giông, bão bùng.\n", type: "output-love", delay: 400 },
-            { text: "07. Nếu cuộc đời là một thuật toán phức tạp, thì vk Trúc chính là đáp án chính xác nhất mà Oxa tìm được.\n", type: "output-love", delay: 400 },
-            { text: "08. Anh yêu cách em cười, yêu cách em dỗi hờn, và yêu cả những lúc em cằn nhằn vì muốn tốt cho anh.\n", type: "output-love", delay: 400 },
-            { text: "09. Trong mắt Oxa, vk Trúc luôn là cô gái xinh đẹp nhất, dịu dàng nhất và không ai có thể thay thế.\n", type: "output-love", delay: 400 },
-            { text: "10. Anh biết mình không hoàn hảo, nhưng anh hứa sẽ yêu em theo cách hoàn hảo nhất mà anh có thể làm.\n", type: "output-love", delay: 400 },
-            { text: "11. Mọi không gian và thời gian anh được ở bên em đều là những khoảnh khắc quý giá mà anh muốn lưu giữ mãi mãi.\n", type: "output-love", delay: 400 },
-            { text: "12. Cảm ơn vk Trúc đã luôn bao dung, thấu hiểu và cùng anh vượt qua những giai đoạn khó khăn trong cuộc sống.\n", type: "output-love", delay: 400 },
-            { text: "13. Anh sẽ chăm chỉ làm việc, xây dựng tương lai vững chắc để vk Trúc của anh không phải chịu bất kỳ thiệt thòi nào.\n", type: "output-love", delay: 400 },
-            { text: "14. Trúc ơi, em chỉ cần an tâm làm công chúa thôi, còn thế giới ngoài kia cứ để Oxa lo hết nhé.\n", type: "output-love", delay: 400 },
-            { text: "15. Tình yêu của anh không có ngày hết hạn, không có lỗi (bug), và luôn được cập nhật (update) mỗi ngày.\n", type: "output-love", delay: 400 },
-            { text: "16. Bất cứ khi nào em cảm thấy mệt mỏi, hãy tựa vào vai anh, vòng tay anh luôn rộng mở để ôm chặt lấy em.\n", type: "output-love", delay: 400 },
-            { text: "17. Anh muốn cùng em đi qua hết những năm tháng thanh xuân, cùng em già đi và ngắm nhìn con cháu chúng ta trưởng thành.\n", type: "output-love", delay: 400 },
-            { text: "18. Hạnh phúc của anh đơn giản lắm, chỉ là được nhìn thấy vk Trúc ăn ngon, ngủ ngon và sống một đời bình an.\n", type: "output-love", delay: 400 },
-            { text: "19. Em là 'nóc nhà' quyền lực nhất, mọi quyết định của em đều là mệnh lệnh tối cao mà Oxa tự nguyện tuân theo.\n", type: "output-love", delay: 400 },
-            { text: "20. Gặp được em là định mệnh, yêu em là lựa chọn, và bên em trọn đời là tâm nguyện lớn nhất của anh.\n", type: "output-love", delay: 400 },
-            { text: "21. Dù thế giới có thay đổi ra sao, dù dòng đời có xoay vần thế nào, Oxa yêu vk Trúc là một chân lý bất biến.\n", type: "output-love", delay: 400 },
-            { text: "22. Anh muốn gửi tới em ngàn nụ hôn ngọt ngào nhất, chúc cho vk yêu của anh luôn rạng rỡ và hạnh phúc bên anh.\n", type: "output-love", delay: 400 },
-            { text: "23. Mỗi ngày bên em đều là ngày lễ Tình nhân, bởi vì tình yêu anh trao em chưa bao giờ vơi bớt dù chỉ một chút.\n", type: "output-love", delay: 400 },
-            { text: "24. Cám ơn em vì đã là vợ của anh, đã cùng anh chia sẻ một mái nhà, một cuộc đời đầy ý nghĩa.\n", type: "output-love", delay: 400 },
-            { text: "25. Oxa yêu vk Trúc hơn cả những lời anh có thể nói, hơn cả những dòng code anh có thể viết ra.\n", type: "output-love", delay: 400 },
-            { text: "26. Em là bình minh ấm áp xóa tan đi những đêm đông lạnh giá trong tâm hồn anh.\n", type: "output-love", delay: 400 },
-            { text: "27. Anh sẽ luôn trân trọng từng phút giây chúng ta bên nhau, từ những bữa cơm giản dị đến những chuyến đi xa.\n", type: "output-love", delay: 400 },
-            { text: "28. Tình yêu này anh đã đồng bộ hóa (sync) vào sâu trong tiềm thức, mãi mãi không bao giờ biến mất.\n", type: "output-love", delay: 400 },
-            { text: "29. Hãy luôn tin tưởng anh nhé, vì anh sẽ dùng cả cuộc đời này để chứng minh tình yêu dành cho em.\n", type: "output-love", delay: 400 },
-            { text: "30. vk Trúc là báu vật độc nhất vô nhị, và Oxa là người gác đền trung thành nhất của báu vật ấy.\n", type: "output-love", delay: 600 },
+            { text: "01. vk Trúc ơi, anh muốn nói với em rằng em là món quà vô giá nhất mà cuộc sống đã ban tặng cho anh.\n", type: "output-love", delay: 300 },
+            { text: "02. Kể từ ngày em bước vào cuộc đời anh, mọi dòng code khô khan đều biến thành những nốt nhạc hạnh phúc.\n", type: "output-love", delay: 300 },
+            { text: "03. Trái tim anh trước đây giống như một hệ thống trống rỗng, nhưng từ khi có em, nó đã được lấp đầy bởi tình yêu.\n", type: "output-love", delay: 300 },
+            { text: "04. Nụ cười của vk Trúc là năng lượng, là 'nguồn điện' duy nhất giữ cho Oxa luôn tràn đầy sức sống và động lực.\n", type: "output-love", delay: 300 },
+            { text: "05. Mỗi buổi sáng thức dậy, điều đầu tiên anh nghĩ đến là làm sao để ngày hôm nay vk Trúc được vui cười nhiều nhất.\n", type: "output-love", delay: 300 },
+            { text: "06. Anh hứa sẽ luôn ở bên em, không chỉ những ngày nắng đẹp mà cả những ngày mưa giông, bão bùng.\n", type: "output-love", delay: 300 },
+            { text: "07. Nếu cuộc đời là một thuật toán phức tạp, thì vk Trúc chính là đáp án chính xác nhất mà Oxa tìm được.\n", type: "output-love", delay: 300 },
+            { text: "08. Anh yêu cách em cười, yêu cách em dỗi hờn, và yêu cả những lúc em cằn nhằn vì muốn tốt cho anh.\n", type: "output-love", delay: 300 },
+            { text: "09. Trong mắt Oxa, vk Trúc luôn là cô gái xinh đẹp nhất, dịu dàng nhất và không ai có thể thay thế.\n", type: "output-love", delay: 300 },
+            { text: "10. Anh biết mình không hoàn hảo, nhưng anh hứa sẽ yêu em theo cách hoàn hảo nhất mà anh có thể làm.\n", type: "output-love", delay: 300 },
+            { text: "11. Mọi không gian và thời gian anh được ở bên em đều là những khoảnh khắc quý giá mà anh muốn lưu giữ mãi mãi.\n", type: "output-love", delay: 300 },
+            { text: "12. Cảm ơn vk Trúc đã luôn bao dung, thấu hiểu và cùng anh vượt qua những giai đoạn khó khăn trong cuộc sống.\n", type: "output-love", delay: 300 },
+            { text: "13. Anh sẽ chăm chỉ làm việc, xây dựng tương lai vững chắc để vk Trúc của anh không phải chịu bất kỳ thiệt thòi nào.\n", type: "output-love", delay: 300 },
+            { text: "14. Trúc ơi, em chỉ cần an tâm làm công chúa thôi, còn thế giới ngoài kia cứ để Oxa lo hết nhé.\n", type: "output-love", delay: 300 },
+            { text: "15. Tình yêu của anh không có ngày hết hạn, không có lỗi (bug), và luôn được cập nhật (update) mỗi ngày.\n", type: "output-love", delay: 300 },
+            { text: "16. Bất cứ khi nào em cảm thấy mệt mỏi, hãy tựa vào vai anh, vòng tay anh luôn rộng mở để ôm chặt lấy em.\n", type: "output-love", delay: 300 },
+            { text: "17. Anh muốn cùng em đi qua hết những năm tháng thanh xuân, cùng em già đi và ngắm nhìn con cháu chúng ta trưởng thành.\n", type: "output-love", delay: 300 },
+            { text: "18. Hạnh phúc của anh đơn giản lắm, chỉ là được nhìn thấy vk Trúc ăn ngon, ngủ ngon và sống một đời bình an.\n", type: "output-love", delay: 300 },
+            { text: "19. Em là 'nóc nhà' quyền lực nhất, mọi quyết định của em đều là mệnh lệnh tối cao mà Oxa tự nguyện tuân theo.\n", type: "output-love", delay: 300 },
+            { text: "20. Gặp được em là định mệnh, yêu em là lựa chọn, và bên em trọn đời là tâm nguyện lớn nhất của anh.\n", type: "output-love", delay: 300 },
+            { text: "21. Dù thế giới có thay đổi ra sao, dù dòng đời có xoay vần thế nào, Oxa yêu vk Trúc là một chân lý bất biến.\n", type: "output-love", delay: 300 },
+            { text: "22. Anh muốn gửi tới em ngàn nụ hôn ngọt ngào nhất, chúc cho vk yêu của anh luôn rạng rỡ và hạnh phúc bên anh.\n", type: "output-love", delay: 300 },
+            { text: "23. Mỗi ngày bên em đều là ngày lễ Tình nhân, bởi vì tình yêu anh trao em chưa bao giờ vơi bớt dù chỉ một chút.\n", type: "output-love", delay: 300 },
+            { text: "24. Cám ơn em vì đã là vợ của anh, đã cùng anh chia sẻ một mái nhà, một cuộc đời đầy ý nghĩa.\n", type: "output-love", delay: 300 },
+            { text: "25. Oxa yêu vk Trúc hơn cả những lời anh có thể nói, hơn cả những dòng code anh có thể viết ra.\n", type: "output-love", delay: 300 },
+            { text: "26. Em là bình minh ấm áp xóa tan đi những đêm đông lạnh giá trong tâm hồn anh.\n", type: "output-love", delay: 300 },
+            { text: "27. Anh sẽ luôn trân trọng từng phút giây chúng ta bên nhau, từ những bữa cơm giản dị đến những chuyến đi xa.\n", type: "output-love", delay: 300 },
+            { text: "28. Tình yêu này anh đã đồng bộ hóa (sync) vào sâu trong tiềm thức, mãi mãi không bao giờ biến mất.\n", type: "output-love", delay: 300 },
+            { text: "29. Hãy luôn tin tưởng anh nhé, vì anh sẽ dùng cả cuộc đời này để chứng minh tình yêu dành cho em.\n", type: "output-love", delay: 300 },
+            { text: "30. vk Trúc là báu vật độc nhất vô nhị, và Oxa là người gác đền trung thành nhất của báu vật ấy.\n", type: "output-love", delay: 500 },
 
-            { text: "\n--- BẢN CAM KẾT CHẤT LƯỢNG TÌNH YÊU ---\n", type: "plain", delay: 600 },
+            { text: "\n--- BẢN CAM KẾT CHẤT LƯỢNG TÌNH YÊU ---\n", type: "plain", delay: 500 },
             
             // 10 Cam kết
-            { text: "31. Oxa cam kết luôn đặt vk Trúc ở vị trí ưu tiên số một trong mọi lựa chọn của cuộc sống.\n", type: "output-info", delay: 400 },
-            { text: "32. Tuyệt đối không bao giờ làm vk Trúc phải khóc vì buồn, chỉ làm vk khóc vì quá hạnh phúc thôi.\n", type: "output-info", delay: 400 },
-            { text: "33. Luôn tự giác báo cáo đi đâu, làm gì để vợ yêu không bao giờ phải lo lắng hay bất an.\n", type: "output-info", delay: 400 },
-            { text: "34. Khi vợ giận, Oxa luôn là người xuống nước trước, vì thắng vợ thì được gì chứ, vợ vui mới là quan trọng nhất!\n", type: "output-info", delay: 400 },
-            { text: "35. Chăm chỉ đỡ đần việc nhà, không để đôi tay mềm mại của vk Trúc phải vất vả, mệt mỏi.\n", type: "output-info", delay: 400 },
-            { text: "36. Sẵn sàng thức khuya dậy sớm để chăm sóc vk Trúc những lúc vk yêu cảm thấy không khỏe.\n", type: "output-info", delay: 400 },
-            { text: "37. Luôn giữ khoảng cách an toàn với tất cả các 'vệ tinh' khác xung quanh, chỉ hướng về duy nhất một mặt trời là vk Trúc.\n", type: "output-info", delay: 400 },
-            { text: "38. Thường xuyên tạo ra những điều bất ngờ, lãng mạn nhỏ nhặt để tình yêu của chúng mình luôn tươi mới như ngày đầu.\n", type: "output-info", delay: 400 },
-            { text: "39. Cùng vk Trúc học hỏi, hoàn thiện bản thân để chúng mình ngày càng thấu hiểu và hòa hợp với nhau hơn.\n", type: "output-info", delay: 400 },
-            { text: "40. Trân trọng gia đình của em giống như gia đình của anh, cùng nhau xây dựng tổ ấm ngập tràn tiếng cười.\n", type: "output-info", delay: 600 },
+            { text: "31. Oxa cam kết luôn đặt vk Trúc ở vị trí ưu tiên số một trong mọi lựa chọn của cuộc sống.\n", type: "output-info", delay: 300 },
+            { text: "32. Tuyệt đối không bao giờ làm vk Trúc phải khóc vì buồn, chỉ làm vk khóc vì quá hạnh phúc thôi.\n", type: "output-info", delay: 300 },
+            { text: "33. Luôn tự giác báo cáo đi đâu, làm gì để vợ yêu không bao giờ phải lo lắng hay bất an.\n", type: "output-info", delay: 300 },
+            { text: "34. Khi vợ giận, Oxa luôn là người xuống nước trước, vì thắng vợ thì được gì chứ, vợ vui mới là quan trọng nhất!\n", type: "output-info", delay: 300 },
+            { text: "35. Chăm chỉ đỡ đần việc nhà, không để đôi tay mềm mại của vk Trúc phải vất vả, mệt mỏi.\n", type: "output-info", delay: 300 },
+            { text: "36. Sẵn sàng thức khuya dậy sớm để chăm sóc vk Trúc những lúc vk yêu cảm thấy không khỏe.\n", type: "output-info", delay: 300 },
+            { text: "37. Luôn giữ khoảng cách an toàn với tất cả các 'vệ tinh' khác xung quanh, chỉ hướng về duy nhất một mặt trời là vk Trúc.\n", type: "output-info", delay: 300 },
+            { text: "38. Thường xuyên tạo ra những điều bất ngờ, lãng mạn nhỏ nhặt để tình yêu của chúng mình luôn tươi mới như ngày đầu.\n", type: "output-info", delay: 300 },
+            { text: "39. Cùng vk Trúc học hỏi, hoàn thiện bản thân để chúng mình ngày càng thấu hiểu và hòa hợp với nhau hơn.\n", type: "output-info", delay: 300 },
+            { text: "40. Trân trọng gia đình của em giống như gia đình của anh, cùng nhau xây dựng tổ ấm ngập tràn tiếng cười.\n", type: "output-info", delay: 500 },
 
-            { text: "--------------------------------------------------------------------------------\n", type: "plain", delay: 300 },
-            { text: "Tình yêu của Oxa dành cho vk Trúc tăng trưởng theo cấp số nhân mỗi ngày!\n", type: "output-love", delay: 400 },
-            { text: "Bộ nhớ hiện tại: Đã đầy 100% hình bóng của vk Trúc (Không thể ghi đè)\n", type: "output-info", delay: 400 },
-            { text: "Trạng thái của Nóc Nhà: Luôn luôn là duy nhất trong tim Oxa\n", type: "output-info", delay: 400 },
-            { text: "--------------------------------------------------------------------------------\n", type: "plain", delay: 500 }
+            { text: "--------------------------------------------------------------------------------\n", type: "plain", delay: 200 },
+            { text: "Tình yêu của Oxa dành cho vk Trúc tăng trưởng theo cấp số nhân mỗi ngày!\n", type: "output-love", delay: 300 },
+            { text: "Bộ nhớ hiện tại: Đã đầy 100% hình bóng của vk Trúc (Không thể ghi đè)\n", type: "output-info", delay: 300 },
+            { text: "Trạng thái của Nóc Nhà: Luôn luôn là duy nhất trong tim Oxa\n", type: "output-info", delay: 300 },
+            { text: "--------------------------------------------------------------------------------\n", type: "plain", delay: 400 }
         ];
 
         let step = 0;
@@ -231,13 +228,11 @@
                 span.textContent = item.text;
                 content.appendChild(span);
                 
-                // Tự động cuộn terminal xuống dưới cùng
                 content.scrollTop = content.scrollHeight;
                 
                 step++;
                 setTimeout(runTerminal, item.delay);
             } else {
-                // Hết kịch bản tĩnh -> Chạy vòng lặp vô hạn `while True` giống hệt Python
                 startInfiniteLoop();
             }
         }
@@ -250,26 +245,27 @@
 
             setInterval(() => {
                 giay_ben_nhau++;
-                loopSpan.textContent = `\r[Giây thứ ${giay_ben_nhau}] Oxa yêu vk Trúc vô cùng! Yêu mãi mãi... ❤️`;
+                // FIX: Loại bỏ ký tự \r để tránh lỗi hiển thị font trên một số trình duyệt di động
+                loopSpan.textContent = `[Giây thứ ${giay_ben_nhau}] Oxa yêu vk Trúc vô cùng! Yêu mãi mãi... ❤️\n`;
                 content.scrollTop = content.scrollHeight;
             }, 1000);
         }
 
-        // Tạo bong bóng trái tim lơ lửng phía sau nền
         function createFloatingHeart() {
             const heart = document.createElement("div");
             heart.innerHTML = "❤️";
             heart.classList.add("bg-heart");
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.fontSize = Math.random() * 15 + 12 + "px";
-            heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+            // FIX: Thu hẹp khoảng cách sinh tim để không kích hoạt scrollbar ngang ngoài ý muốn
+            heart.style.left = (Math.random() * 95) + "vw";
+            heart.style.fontSize = (Math.random() * 15 + 12) + "px";
+            heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
             document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 5000);
+            setTimeout(() => heart.remove(), 4000);
         }
 
         document.addEventListener("DOMContentLoaded", function() {
             runTerminal();
-            setInterval(createFloatingHeart, 300);
+            setInterval(createFloatingHeart, 350);
         });
     </script>
 </body>

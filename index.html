@@ -3,108 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gửi vk Trúc yêu dấu! ❤️</title>
+    <title>Hệ Điều Hành Tình Yêu - Oxa ❤️ vk Trúc</title>
     <style>
-        /* Toàn bộ cấu trúc nền của trang web */
         body {
             margin: 0;
-            padding: 0;
+            padding: 20px;
             background: linear-gradient(135deg, #ffe5ec, #ffc2d1);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Consolas', 'Courier New', Courier, monospace;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            overflow: hidden;
-            color: #4a4a4a;
+            overflow-x: hidden;
+            box-sizing: border-box;
         }
 
-        /* Khung chứa thông điệp chính */
-        .container {
+        /* Khung trái tim đập phía trên */
+        .heart-header {
             text-align: center;
-            z-index: 10;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 40px;
-            border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(255, 71, 126, 0.2);
-            backdrop-filter: blur(8px);
-            max-width: 550px;
-            width: 85%;
+            margin-bottom: 15px;
         }
-
-        h1 {
-            color: #ff477e;
-            margin-bottom: 10px;
-            font-size: 2.2rem;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
-        }
-
-        /* Tạo hình trái tim bằng CSS thuần */
+        
         .heart {
             background-color: #ff477e;
             display: inline-block;
-            height: 90px;
-            margin: 40px auto;
+            height: 40px;
             position: relative;
             transform: rotate(-45deg);
-            width: 90px;
-            /* Kích hoạt hiệu ứng nhịp đập vĩnh cửu */
+            width: 40px;
             animation: beat 0.8s infinite;
-            box-shadow: -5px 5px 15px rgba(255, 71, 126, 0.4);
+            box-shadow: -2px 2px 10px rgba(255, 71, 126, 0.4);
         }
-
         .heart:before, .heart:after {
             content: "";
             background-color: #ff477e;
             border-radius: 50%;
-            height: 90px;
+            height: 40px;
             position: absolute;
-            width: 90px;
+            width: 40px;
         }
+        .heart:before { top: -20px; left: 0; }
+        .heart:after { left: 20px; top: 0; }
 
-        .heart:before { top: -45px; left: 0; }
-        .heart:after { left: 45px; top: 0; }
-
-        /* Animation định nghĩa nhịp đập trái tim */
         @keyframes beat {
             0% { transform: scale(1) rotate(-45deg); }
             50% { transform: scale(1.15) rotate(-45deg); }
             100% { transform: scale(1) rotate(-45deg); }
         }
 
-        /* Khung hiển thị chữ chạy */
-        .text-box {
-            min-height: 70px;
-            font-size: 1.3rem;
-            line-height: 1.6;
-            color: #ff5c8a;
-            font-weight: 600;
+        h1 {
+            color: #ff477e;
+            font-size: 1.5rem;
+            margin: 10px 0;
+            font-family: system-ui, -apple-system, sans-serif;
         }
 
-        /* Con trỏ nhấp nháy mô phỏng gõ chữ */
-        .cursor {
-            display: inline-block;
-            width: 3px;
-            background-color: #ff477e;
-            animation: blink 0.6s infinite;
+        /* Giả lập cửa sổ IDE/Terminal cực ngầu */
+        .terminal {
+            width: 100%;
+            max-width: 750px;
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
+        /* Thanh tiêu đề cửa sổ */
+        .terminal-header {
+            background-color: #323232;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            position: relative;
         }
 
-        /* Hiệu ứng bong bóng trái tim bay lơ lửng phía nền */
+        .buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .close { background-color: #ff5f56; }
+        .minimize { background-color: #ffbd2e; }
+        .maximize { background-color: #27c93f; }
+
+        .title {
+            color: #cccccc;
+            font-size: 0.9rem;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Phần nội dung dòng lệnh */
+        .terminal-body {
+            padding: 20px;
+            color: #f8f8f2;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            height: 450px;
+            overflow-y: auto;
+            text-align: left;
+            white-space: pre-wrap;
+        }
+
+        .command { color: #50fa7b; }
+        .output-info { color: #8be9fd; }
+        .output-love { color: #ff79c6; }
+        .output-warning { color: #ff5555; font-weight: bold; }
+        
+        /* Hiệu ứng bong bóng tim bay nền */
         .bg-heart {
             position: absolute;
-            color: rgba(255, 71, 126, 0.25);
+            color: rgba(255, 71, 126, 0.2);
             animation: floatUp 4s linear infinite;
             bottom: -30px;
             user-select: none;
             pointer-events: none;
+            z-index: -1;
         }
-
         @keyframes floatUp {
             0% { transform: translateY(0) scale(0); opacity: 1; }
             100% { transform: translateY(-110vh) scale(1.4); opacity: 0; }
@@ -113,53 +137,125 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1>Gửi vk Trúc của Oxa! ❤️</h1>
+    <div class="heart-header">
         <div class="heart"></div>
-        <div class="text-box">
-            <span id="typing"></span><span class="cursor">&nbsp;</span>
+        <h1>Hệ Điều Hành Tình Yêu v1.0.2</h1>
+    </div>
+
+    <div class="terminal">
+        <div class="terminal-header">
+            <div class="buttons">
+                <div class="button close"></div>
+                <div class="button minimize"></div>
+                <div class="button maximize"></div>
+            </div>
+            <div class="title">forever_love_os.py</div>
         </div>
+        <div class="terminal-body" id="terminal-content"></div>
     </div>
 
     <script>
-        // Các chuỗi thông điệp sẽ tự động chạy lặp đi lặp lại
-        const textArray = [
-            "Oxa yêu vk Trúc nhất trên đời này! 🥰",
-            "Mã nguồn trái tim anh đã được định cấu hình: Chỉ yêu mình em. 🚀",
-            "Nụ cười của vk Trúc là năng lượng vận hành cuộc sống của Oxa. 💖",
-            "Trúc ơi, làm nữ hoàng của đời anh trọn đời nhé! 🏡✨",
-            "Vòng lặp yêu thương này là vô hạn, không bao giờ có lệnh ngắt! ♾️❤️"
+        const content = document.getElementById("terminal-content");
+
+        // Lấy thời gian hiện tại động
+        const now = new Date();
+        const timeStr = now.toLocaleDateString('vi-VN') + " " + now.toLocaleTimeString('vi-VN');
+
+        // Chuỗi kịch bản mô phỏng chạy terminal
+        const scripts = [
+            { text: "Gumaisme2005-PC:~ chong_yeu$ python love.py\n", type: "command", delay: 1000 },
+            { text: `Thời gian khởi chạy hệ thống: ${timeStr}\n`, type: "output-info", delay: 800 },
+            { text: "Hệ thống nhận diện: Oxa đang kết nối trực tiếp đến trái tim của vk Trúc...\n", type: "output-info", delay: 800 },
+            { text: "--------------------------------------------------------------------------------\n", type: "plain", delay: 300 },
+            
+            // 30 Lời thú nhận
+            { text: "01. vk Trúc ơi, anh muốn nói với em rằng em là món quà vô giá nhất mà cuộc sống đã ban tặng cho anh.\n", type: "output-love", delay: 400 },
+            { text: "02. Kể từ ngày em bước vào cuộc đời anh, mọi dòng code khô khan đều biến thành những nốt nhạc hạnh phúc.\n", type: "output-love", delay: 400 },
+            { text: "03. Trái tim anh trước đây giống như một hệ thống trống rỗng, nhưng từ khi có em, nó đã được lấp đầy bởi tình yêu.\n", type: "output-love", delay: 400 },
+            { text: "04. Nụ cười của vk Trúc là năng lượng, là 'nguồn điện' duy nhất giữ cho Oxa luôn tràn đầy sức sống và động lực.\n", type: "output-love", delay: 400 },
+            { text: "05. Mỗi buổi sáng thức dậy, điều đầu tiên anh nghĩ đến là làm sao để ngày hôm nay vk Trúc được vui cười nhiều nhất.\n", type: "output-love", delay: 400 },
+            { text: "06. Anh hứa sẽ luôn ở bên em, không chỉ những ngày nắng đẹp mà cả những ngày mưa giông, bão bùng.\n", type: "output-love", delay: 400 },
+            { text: "07. Nếu cuộc đời là một thuật toán phức tạp, thì vk Trúc chính là đáp án chính xác nhất mà Oxa tìm được.\n", type: "output-love", delay: 400 },
+            { text: "08. Anh yêu cách em cười, yêu cách em dỗi hờn, và yêu cả những lúc em cằn nhằn vì muốn tốt cho anh.\n", type: "output-love", delay: 400 },
+            { text: "09. Trong mắt Oxa, vk Trúc luôn là cô gái xinh đẹp nhất, dịu dàng nhất và không ai có thể thay thế.\n", type: "output-love", delay: 400 },
+            { text: "10. Anh biết mình không hoàn hảo, nhưng anh hứa sẽ yêu em theo cách hoàn hảo nhất mà anh có thể làm.\n", type: "output-love", delay: 400 },
+            { text: "11. Mọi không gian và thời gian anh được ở bên em đều là những khoảnh khắc quý giá mà anh muốn lưu giữ mãi mãi.\n", type: "output-love", delay: 400 },
+            { text: "12. Cảm ơn vk Trúc đã luôn bao dung, thấu hiểu và cùng anh vượt qua những giai đoạn khó khăn trong cuộc sống.\n", type: "output-love", delay: 400 },
+            { text: "13. Anh sẽ chăm chỉ làm việc, xây dựng tương lai vững chắc để vk Trúc của anh không phải chịu bất kỳ thiệt thòi nào.\n", type: "output-love", delay: 400 },
+            { text: "14. Trúc ơi, em chỉ cần an tâm làm công chúa thôi, còn thế giới ngoài kia cứ để Oxa lo hết nhé.\n", type: "output-love", delay: 400 },
+            { text: "15. Tình yêu của anh không có ngày hết hạn, không có lỗi (bug), và luôn được cập nhật (update) mỗi ngày.\n", type: "output-love", delay: 400 },
+            { text: "16. Bất cứ khi nào em cảm thấy mệt mỏi, hãy tựa vào vai anh, vòng tay anh luôn rộng mở để ôm chặt lấy em.\n", type: "output-love", delay: 400 },
+            { text: "17. Anh muốn cùng em đi qua hết những năm tháng thanh xuân, cùng em già đi và ngắm nhìn con cháu chúng ta trưởng thành.\n", type: "output-love", delay: 400 },
+            { text: "18. Hạnh phúc của anh đơn giản lắm, chỉ là được nhìn thấy vk Trúc ăn ngon, ngủ ngon và sống một đời bình an.\n", type: "output-love", delay: 400 },
+            { text: "19. Em là 'nóc nhà' quyền lực nhất, mọi quyết định của em đều là mệnh lệnh tối cao mà Oxa tự nguyện tuân theo.\n", type: "output-love", delay: 400 },
+            { text: "20. Gặp được em là định mệnh, yêu em là lựa chọn, và bên em trọn đời là tâm nguyện lớn nhất của anh.\n", type: "output-love", delay: 400 },
+            { text: "21. Dù thế giới có thay đổi ra sao, dù dòng đời có xoay vần thế nào, Oxa yêu vk Trúc là một chân lý bất biến.\n", type: "output-love", delay: 400 },
+            { text: "22. Anh muốn gửi tới em ngàn nụ hôn ngọt ngào nhất, chúc cho vk yêu của anh luôn rạng rỡ và hạnh phúc bên anh.\n", type: "output-love", delay: 400 },
+            { text: "23. Mỗi ngày bên em đều là ngày lễ Tình nhân, bởi vì tình yêu anh trao em chưa bao giờ vơi bớt dù chỉ một chút.\n", type: "output-love", delay: 400 },
+            { text: "24. Cám ơn em vì đã là vợ của anh, đã cùng anh chia sẻ một mái nhà, một cuộc đời đầy ý nghĩa.\n", type: "output-love", delay: 400 },
+            { text: "25. Oxa yêu vk Trúc hơn cả những lời anh có thể nói, hơn cả những dòng code anh có thể viết ra.\n", type: "output-love", delay: 400 },
+            { text: "26. Em là bình minh ấm áp xóa tan đi những đêm đông lạnh giá trong tâm hồn anh.\n", type: "output-love", delay: 400 },
+            { text: "27. Anh sẽ luôn trân trọng từng phút giây chúng ta bên nhau, từ những bữa cơm giản dị đến những chuyến đi xa.\n", type: "output-love", delay: 400 },
+            { text: "28. Tình yêu này anh đã đồng bộ hóa (sync) vào sâu trong tiềm thức, mãi mãi không bao giờ biến mất.\n", type: "output-love", delay: 400 },
+            { text: "29. Hãy luôn tin tưởng anh nhé, vì anh sẽ dùng cả cuộc đời này để chứng minh tình yêu dành cho em.\n", type: "output-love", delay: 400 },
+            { text: "30. vk Trúc là báu vật độc nhất vô nhị, và Oxa là người gác đền trung thành nhất của báu vật ấy.\n", type: "output-love", delay: 600 },
+
+            { text: "\n--- BẢN CAM KẾT CHẤT LƯỢNG TÌNH YÊU ---\n", type: "plain", delay: 600 },
+            
+            // 10 Cam kết
+            { text: "31. Oxa cam kết luôn đặt vk Trúc ở vị trí ưu tiên số một trong mọi lựa chọn của cuộc sống.\n", type: "output-info", delay: 400 },
+            { text: "32. Tuyệt đối không bao giờ làm vk Trúc phải khóc vì buồn, chỉ làm vk khóc vì quá hạnh phúc thôi.\n", type: "output-info", delay: 400 },
+            { text: "33. Luôn tự giác báo cáo đi đâu, làm gì để vợ yêu không bao giờ phải lo lắng hay bất an.\n", type: "output-info", delay: 400 },
+            { text: "34. Khi vợ giận, Oxa luôn là người xuống nước trước, vì thắng vợ thì được gì chứ, vợ vui mới là quan trọng nhất!\n", type: "output-info", delay: 400 },
+            { text: "35. Chăm chỉ đỡ đần việc nhà, không để đôi tay mềm mại của vk Trúc phải vất vả, mệt mỏi.\n", type: "output-info", delay: 400 },
+            { text: "36. Sẵn sàng thức khuya dậy sớm để chăm sóc vk Trúc những lúc vk yêu cảm thấy không khỏe.\n", type: "output-info", delay: 400 },
+            { text: "37. Luôn giữ khoảng cách an toàn với tất cả các 'vệ tinh' khác xung quanh, chỉ hướng về duy nhất một mặt trời là vk Trúc.\n", type: "output-info", delay: 400 },
+            { text: "38. Thường xuyên tạo ra những điều bất ngờ, lãng mạn nhỏ nhặt để tình yêu của chúng mình luôn tươi mới như ngày đầu.\n", type: "output-info", delay: 400 },
+            { text: "39. Cùng vk Trúc học hỏi, hoàn thiện bản thân để chúng mình ngày càng thấu hiểu và hòa hợp với nhau hơn.\n", type: "output-info", delay: 400 },
+            { text: "40. Trân trọng gia đình của em giống như gia đình của anh, cùng nhau xây dựng tổ ấm ngập tràn tiếng cười.\n", type: "output-info", delay: 600 },
+
+            { text: "--------------------------------------------------------------------------------\n", type: "plain", delay: 300 },
+            { text: "Tình yêu của Oxa dành cho vk Trúc tăng trưởng theo cấp số nhân mỗi ngày!\n", type: "output-love", delay: 400 },
+            { text: "Bộ nhớ hiện tại: Đã đầy 100% hình bóng của vk Trúc (Không thể ghi đè)\n", type: "output-info", delay: 400 },
+            { text: "Trạng thái của Nóc Nhà: Luôn luôn là duy nhất trong tim Oxa\n", type: "output-info", delay: 400 },
+            { text: "--------------------------------------------------------------------------------\n", type: "plain", delay: 500 }
         ];
-        
-        let arrayIndex = 0;
-        let charIndex = 0;
-        const typingSpeed = 100; // Tốc độ gõ (ms)
-        const erasingSpeed = 50;  // Tốc độ xóa chữ (ms)
-        const delayBetweenTexts = 2200; // Thời gian dừng lại xem chữ
-        const typingElement = document.getElementById("typing");
 
-        function type() {
-            if (charIndex < textArray[arrayIndex].length) {
-                typingElement.textContent += textArray[arrayIndex].charAt(charIndex);
-                charIndex++;
-                setTimeout(type, typingSpeed);
+        let step = 0;
+
+        function runTerminal() {
+            if (step < scripts.length) {
+                const item = scripts[step];
+                const span = document.createElement("span");
+                span.classList.add(item.type);
+                span.textContent = item.text;
+                content.appendChild(span);
+                
+                // Tự động cuộn terminal xuống dưới cùng
+                content.scrollTop = content.scrollHeight;
+                
+                step++;
+                setTimeout(runTerminal, item.delay);
             } else {
-                setTimeout(erase, delayBetweenTexts);
+                // Hết kịch bản tĩnh -> Chạy vòng lặp vô hạn `while True` giống hệt Python
+                startInfiniteLoop();
             }
         }
 
-        function erase() {
-            if (charIndex > 0) {
-                typingElement.textContent = textArray[arrayIndex].substring(0, charIndex - 1);
-                charIndex--;
-                setTimeout(erase, erasingSpeed);
-            } else {
-                arrayIndex = (arrayIndex + 1) % textArray.length;
-                setTimeout(type, typingSpeed);
-            }
+        function startInfiniteLoop() {
+            let giay_ben_nhau = 0;
+            const loopSpan = document.createElement("span");
+            loopSpan.classList.add("output-love");
+            content.appendChild(loopSpan);
+
+            setInterval(() => {
+                giay_ben_nhau++;
+                loopSpan.textContent = `\r[Giây thứ ${giay_ben_nhau}] Oxa yêu vk Trúc vô cùng! Yêu mãi mãi... ❤️`;
+                content.scrollTop = content.scrollHeight;
+            }, 1000);
         }
 
-        // Tạo hiệu ứng trái tim lơ lửng ngẫu nhiên trên màn hình
+        // Tạo bong bóng trái tim lơ lửng phía sau nền
         function createFloatingHeart() {
             const heart = document.createElement("div");
             heart.innerHTML = "❤️";
@@ -171,12 +267,10 @@
             setTimeout(() => heart.remove(), 5000);
         }
 
-        // Khởi chạy các hiệu ứng khi trang web tải xong
         document.addEventListener("DOMContentLoaded", function() {
-            setTimeout(type, 600);
-            setInterval(createFloatingHeart, 250);
+            runTerminal();
+            setInterval(createFloatingHeart, 300);
         });
     </script>
 </body>
 </html>
- 

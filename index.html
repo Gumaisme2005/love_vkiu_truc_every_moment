@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi vk Trúc yêu dấu! ❤️</title>
+    <style>
+        /* Toàn bộ cấu trúc nền của trang web */
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ffe5ec, #ffc2d1);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            color: #4a4a4a;
+        }
+
+        /* Khung chứa thông điệp chính */
+        .container {
+            text-align: center;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(255, 71, 126, 0.2);
+            backdrop-filter: blur(8px);
+            max-width: 550px;
+            width: 85%;
+        }
+
+        h1 {
+            color: #ff477e;
+            margin-bottom: 10px;
+            font-size: 2.2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        /* Tạo hình trái tim bằng CSS thuần */
+        .heart {
+            background-color: #ff477e;
+            display: inline-block;
+            height: 90px;
+            margin: 40px auto;
+            position: relative;
+            transform: rotate(-45deg);
+            width: 90px;
+            /* Kích hoạt hiệu ứng nhịp đập vĩnh cửu */
+            animation: beat 0.8s infinite;
+            box-shadow: -5px 5px 15px rgba(255, 71, 126, 0.4);
+        }
+
+        .heart:before, .heart:after {
+            content: "";
+            background-color: #ff477e;
+            border-radius: 50%;
+            height: 90px;
+            position: absolute;
+            width: 90px;
+        }
+
+        .heart:before { top: -45px; left: 0; }
+        .heart:after { left: 45px; top: 0; }
+
+        /* Animation định nghĩa nhịp đập trái tim */
+        @keyframes beat {
+            0% { transform: scale(1) rotate(-45deg); }
+            50% { transform: scale(1.15) rotate(-45deg); }
+            100% { transform: scale(1) rotate(-45deg); }
+        }
+
+        /* Khung hiển thị chữ chạy */
+        .text-box {
+            min-height: 70px;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            color: #ff5c8a;
+            font-weight: 600;
+        }
+
+        /* Con trỏ nhấp nháy mô phỏng gõ chữ */
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            background-color: #ff477e;
+            animation: blink 0.6s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        /* Hiệu ứng bong bóng trái tim bay lơ lửng phía nền */
+        .bg-heart {
+            position: absolute;
+            color: rgba(255, 71, 126, 0.25);
+            animation: floatUp 4s linear infinite;
+            bottom: -30px;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(0); opacity: 1; }
+            100% { transform: translateY(-110vh) scale(1.4); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Gửi vk Trúc của Oxa! ❤️</h1>
+        <div class="heart"></div>
+        <div class="text-box">
+            <span id="typing"></span><span class="cursor">&nbsp;</span>
+        </div>
+    </div>
+
+    <script>
+        // Các chuỗi thông điệp sẽ tự động chạy lặp đi lặp lại
+        const textArray = [
+            "Oxa yêu vk Trúc nhất trên đời này! 🥰",
+            "Mã nguồn trái tim anh đã được định cấu hình: Chỉ yêu mình em. 🚀",
+            "Nụ cười của vk Trúc là năng lượng vận hành cuộc sống của Oxa. 💖",
+            "Trúc ơi, làm nữ hoàng của đời anh trọn đời nhé! 🏡✨",
+            "Vòng lặp yêu thương này là vô hạn, không bao giờ có lệnh ngắt! ♾️❤️"
+        ];
+        
+        let arrayIndex = 0;
+        let charIndex = 0;
+        const typingSpeed = 100; // Tốc độ gõ (ms)
+        const erasingSpeed = 50;  // Tốc độ xóa chữ (ms)
+        const delayBetweenTexts = 2200; // Thời gian dừng lại xem chữ
+        const typingElement = document.getElementById("typing");
+
+        function type() {
+            if (charIndex < textArray[arrayIndex].length) {
+                typingElement.textContent += textArray[arrayIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(type, typingSpeed);
+            } else {
+                setTimeout(erase, delayBetweenTexts);
+            }
+        }
+
+        function erase() {
+            if (charIndex > 0) {
+                typingElement.textContent = textArray[arrayIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(erase, erasingSpeed);
+            } else {
+                arrayIndex = (arrayIndex + 1) % textArray.length;
+                setTimeout(type, typingSpeed);
+            }
+        }
+
+        // Tạo hiệu ứng trái tim lơ lửng ngẫu nhiên trên màn hình
+        function createFloatingHeart() {
+            const heart = document.createElement("div");
+            heart.innerHTML = "❤️";
+            heart.classList.add("bg-heart");
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = Math.random() * 15 + 12 + "px";
+            heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+
+        // Khởi chạy các hiệu ứng khi trang web tải xong
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(type, 600);
+            setInterval(createFloatingHeart, 250);
+        });
+    </script>
+</body>
+</html>
